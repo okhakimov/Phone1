@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private List<Button> buttons;
+    private static final int[] BUTTON_IDS = {
+            R.id.call1,
+            R.id.call2,
+            R.id.call3,
+            R.id.call4,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +50,33 @@ public class MainActivity extends AppCompatActivity {
         Button b_call2 = (Button) findViewById(R.id.call2);
         b_call2.setOnClickListener(b_call2_OnClickListener);
 
+
+        findViewById(getResources().getIdentifier("call" + "3", "id", getPackageName()))
+                .setBackgroundColor(Color.RED);
+
+        buttons = new ArrayList<Button>();
+        // or slightly better
+        // buttons = new ArrayList<Button>(BUTTON_IDS.length);
+        int k = 0;
+        for(int id : BUTTON_IDS) {
+            Button button = (Button)findViewById(id);
+            //button.setOnClickListener(this); // maybe
+            button.setOnClickListener(b_OnClickListener);
+            button.setTag(k);
+            k = k+1;
+            buttons.add(button);
+        }
     }
+
+    View.OnClickListener b_OnClickListener =
+            new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    int n = (int) v.getTag();
+                    Toast.makeText(getApplicationContext(), "call "+n+ " clicked", Toast.LENGTH_LONG).show();
+
+                }};
 
     View.OnClickListener b_call1_OnClickListener =
             new View.OnClickListener() {
