@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int n = (int) v.getTag();
-                    Toast.makeText(getApplicationContext(), "call "+n+ " clicked", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "call "+n+ " clicked", Toast.LENGTH_LONG).show();
                     // call
                     Intent intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:"+params.Phones[n][1]));
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int n = (int) v.getTag();
-                    Toast.makeText(getApplicationContext(), "sms "+n+ " clicked", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "sms "+n+ " clicked", Toast.LENGTH_LONG).show();
                     // check timer
                     Boolean timer_ok = false;
                     if ((System.currentTimeMillis()/1000)-sms_t[n] > sms_interval) {
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                         String message;
                         SmsManager sms = SmsManager.getDefault();
 
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.click1);
+                        mp.start();
+
                         for (Integer sms_id : params.SmsIds[n]) {
                             if (sms_id != null) {
                                 phone = params.Phones[sms_id][1];
@@ -139,9 +143,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    //sms
-                    //SmsManager sms = SmsManager.getDefault();
-                    //sms.sendTextMessage("89871449251", null, "test1", null, null);
 
                 }};
 
