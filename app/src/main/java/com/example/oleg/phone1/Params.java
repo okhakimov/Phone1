@@ -42,6 +42,8 @@ public class Params
             String line;
             int line_nb = 1;
             while ((line = br.readLine()) != null) {
+                //replace multiple spaces by a single space
+                line = line.trim().replaceAll(" +", " ");
                 msg = parseInput(line);
                 if (!msg.equals("ok")) {
                     msg=msg+" line "+Integer.toString(line_nb);
