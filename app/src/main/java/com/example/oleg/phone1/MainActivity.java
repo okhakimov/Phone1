@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -93,6 +94,15 @@ public class MainActivity extends AppCompatActivity {
             Button button = (Button)findViewById(id);
             button.setOnClickListener(b_smsOnClickListener);
             button.setTag(k+1);
+            //Log.d("===",params.SmsColors[k+1]);
+            //button.setBackgroundResource(R.drawable.roundedbutton_green);
+            //GradientDrawable drawable = (GradientDrawable) button.getDrawableState();
+            //drawable.setColor(Color.RED);
+
+
+
+            button.setBackgroundColor(Color.parseColor(params.SmsColors[k+1]));
+            button.setText(params.SmsLabels[k+1]);
             k = k+1;
 
         }

@@ -1,7 +1,7 @@
 package com.example.oleg.phone1;
 
 /**
- * Created by oleg on 7/20/18.
+ * Created by oleg on 7/21/18.
  */
 
 // read file with parametes and create an object
@@ -20,6 +20,8 @@ public class Params
     public String[][] Phones = new String [30][2] ;
     public Integer[] CallId = new Integer [30] ;
     public String[] CallColors = new String [30] ;
+    public String[] SmsColors = new String [30] ;
+    public String[] SmsLabels = new String [30] ;
     public String[] SmsMessages = new String [30] ;
     public Integer[][] SmsIds = new Integer [10][20] ;
     public String msg = "ok";
@@ -29,7 +31,7 @@ public class Params
     {
         File in_file = new File(in_file_name);
 
-        ColorCodes.put("red", "ff6d18");
+        ColorCodes.put("red", "#ff6d18");
         ColorCodes.put("green", "#41ba7a");
         ColorCodes.put("blue", "#5e9aff");
         ColorCodes.put("orange", "#ffe85f");
@@ -99,7 +101,13 @@ public class Params
                             i++;
                         }
                     }
-                    SmsMessages[n]  = a_line[3];
+                    if (ColorCodes.get(a_line[3]) != null) {
+                        SmsColors[n] = ColorCodes.get(a_line[3]);
+                    } else {
+                        SmsColors[n]  = a_line[3];
+                    }
+                    SmsLabels[n]  = a_line[4];
+                    SmsMessages[n]  = a_line[5];
                 } else {
                     msg = "-- error: duplicate number in the list of sms.";
                 }
