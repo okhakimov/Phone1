@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     File sdcard = Environment.getExternalStorageDirectory();
-    String in_file_name = sdcard+"/DCIM/PHONE/phone_list.txt";
+    public String in_file_name = sdcard+"/DCIM/PHONE/phone_list.txt";
     //File in_file = new File(sdcard,in_file_name);
     public Params params = new Params(in_file_name);
 
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                         timer_ok = true;
                     }
                     if (timer_ok) {
-                        Log.d("===","ok");
+                        //Log.d("===","ok");
                         String phone;
                         String message;
                         SmsManager sms = SmsManager.getDefault();
