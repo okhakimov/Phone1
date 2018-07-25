@@ -74,37 +74,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttons = new ArrayList<Button>();
-        // or slightly better
-        // buttons = new ArrayList<Button>(BUTTON_IDS.length);
-        Integer k = 0;
-        for(int id : BUTTON_IDS) {
-            Button button = (Button)findViewById(id);
-            //button.setOnClickListener(this); // maybe
-            button.setOnClickListener(b_OnClickListener);
-            button.setTag(k+1);
-            //Log.d("===k ",Integer.toString(k));
-            button.setText(params.Phones[k+1][0]);
-            button.setBackgroundColor(Color.parseColor(params.CallColors[k+1]));
-            k = k+1;
-            buttons.add(button);
-        }
 
-        k = 0;
-        for(int id : SMS_BUTTON_IDS) {
-            Button button = (Button)findViewById(id);
-            button.setOnClickListener(b_smsOnClickListener);
-            button.setTag(k+1);
-            //Log.d("===",params.SmsColors[k+1]);
-            //button.setBackgroundResource(R.drawable.roundedbutton_green);
-            //GradientDrawable drawable = (GradientDrawable) button.getDrawableState();
-            //drawable.setColor(Color.RED);
+        if ("ok".equals(params.msg)) {
+            Integer k = 0;
+            for (int id : BUTTON_IDS) {
+                Button button = (Button) findViewById(id);
+                //button.setOnClickListener(this); // maybe
+                button.setOnClickListener(b_OnClickListener);
+                button.setTag(k + 1);
+                //Log.d("===k ",Integer.toString(k));
+                button.setText(params.Phones[k + 1][0]);
+                button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
+                k = k + 1;
+                buttons.add(button);
+            }
+
+            k = 0;
+            for (int id : SMS_BUTTON_IDS) {
+                Button button = (Button) findViewById(id);
+                button.setOnClickListener(b_smsOnClickListener);
+                button.setTag(k + 1);
+                //Log.d("===",params.SmsColors[k+1]);
+                //button.setBackgroundResource(R.drawable.roundedbutton_green);
+                //GradientDrawable drawable = (GradientDrawable) button.getDrawableState();
+                //drawable.setColor(Color.RED);
 
 
+                button.setBackgroundColor(Color.parseColor(params.SmsColors[k + 1]));
+                button.setText(params.SmsLabels[k + 1]);
+                k = k + 1;
 
-            button.setBackgroundColor(Color.parseColor(params.SmsColors[k+1]));
-            button.setText(params.SmsLabels[k+1]);
-            k = k+1;
-
+            }
+        } else {
+            Button button = (Button) findViewById(R.id.call1);
+            button.setTextSize(8);
+            button.setText(params.msg);
+            //Toast.makeText(getApplicationContext(), params.msg, Toast.LENGTH_LONG).show();
         }
     }
 
