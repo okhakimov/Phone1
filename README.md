@@ -1,7 +1,8 @@
 android Phone/sms application with large buttons. Phone and sms numbers are defined in a config file DCIM/PHONE/phone_list.txt
 
 Example of the config file:
--- phones
+<pre>
+## phones
 p 1 Name1 8....678901
 p 2 Name2 8....678902
 p 3 Name3 8....678907
@@ -16,3 +17,4 @@ c 4 4 blue
 s 1 4 blue   1 a
 s 2 4 orange 2 b
 s 3 4 red    SOS !SOS
+</pre>
