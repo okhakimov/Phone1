@@ -8,9 +8,9 @@ p 2 Name2 8....678902
 p 3 Name3 8....678907
 p 4 Name4 8....678904
 ## call buttons
-c 1 1 green
-c 2 2 green
-c 3 3 blue
+c 1 1 #d3ffce
+c 2 2 #d3ffce
+c 3 3 #c6e2ff
 c 4 4 blue
 ## sms buttons
 ## s n phone1,phone2,... color label sms_message 
