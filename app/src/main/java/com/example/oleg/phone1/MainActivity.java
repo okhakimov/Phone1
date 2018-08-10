@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(b_OnClickListener);
                 button.setTag(k + 1);
                 //Log.d("===k ",Integer.toString(k));
-                button.setText(params.Phones[k + 1][0]);
+                button.setText(params.Phones[params.CallId[k + 1]][0]);
                 button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
                 k = k + 1;
                 buttons.add(button);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), "call "+n+ " clicked", Toast.LENGTH_LONG).show();
                     // call
                     Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:"+params.Phones[n][1]));
+                    intent.setData(Uri.parse("tel:"+params.Phones[params.CallId[n]][1]));
                     startActivity(intent);
                 }};
     View.OnClickListener b_smsOnClickListener =
