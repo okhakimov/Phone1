@@ -5,6 +5,7 @@ package com.example.oleg.phone1;
  */
 
 // read file with parametes and create an object
+// read file with parametes and create an object
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,6 +27,7 @@ public class Params
     public Integer[][] SmsIds = new Integer [10][20] ;
     public String msg = "ok";
     public    HashMap<String, String>  ColorCodes = new HashMap<String, String>();
+    public    HashMap<String, String>  Options = new HashMap<String, String>();
 
     public Params (String in_file_name)
     {
@@ -38,6 +40,10 @@ public class Params
         ColorCodes.put("yellow", "#ddff31");
         ColorCodes.put("pink", "#f67eff");
         ColorCodes.put("grey", "#c8c8c8");
+
+        Options.put("test", "0");
+        Options.put("sms_delay", "0");
+
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(in_file));
@@ -67,6 +73,10 @@ public class Params
         String[] a_line = line.split(" ");
 
         switch (a_line[0] ) {
+            case "o" :
+                // options
+                Options.put(a_line[1],a_line[2]);
+                break;
             case "p" :
                 //System.out.println("== p");
                 int n = Integer.parseInt(a_line[1]);
@@ -119,4 +129,3 @@ public class Params
         return msg;
     }
 }
-

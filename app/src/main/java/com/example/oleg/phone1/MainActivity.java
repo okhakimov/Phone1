@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        if (params.Options.get("test").equals("1")) {
+            // test
+            Toast.makeText(getApplicationContext(), "== test mode ==", Toast.LENGTH_LONG).show();
+        }
+
         buttons = new ArrayList<Button>();
 
         if ("ok".equals(params.msg)) {
@@ -119,11 +124,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int n = (int) v.getTag();
-                    //Toast.makeText(getApplicationContext(), "call "+n+ " clicked", Toast.LENGTH_LONG).show();
-                    // call
-                    Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:"+params.Phones[params.CallId[n]][1]));
-                    startActivity(intent);
+                    if (params.Options.get("test").equals("1")) {
+                        // test
+                        Toast.makeText(getApplicationContext(), "== test call tel: "+params.Phones[params.CallId[n]][1], Toast.LENGTH_LONG).show();
+                    } else {
+                        // call
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + params.Phones[params.CallId[n]][1]));
+                        startActivity(intent);
+                    }
                 }};
     View.OnClickListener b_smsOnClickListener =
             new View.OnClickListener() {
@@ -152,8 +161,13 @@ public class MainActivity extends AppCompatActivity {
                                 phone = params.Phones[sms_id][1];
                                 message = params.SmsMessages[n];
                                 //Log.d("===",message);
-                                //send sms
-                                sms.sendTextMessage(phone, null, message, null, null);
+                                if (params.Options.get("test").equals("1")) {
+                                    // test
+                                    Toast.makeText(getApplicationContext(), "== test sms: "+phone, Toast.LENGTH_LONG).show();
+                                } else {
+                                    //send sms
+                                    sms.sendTextMessage(phone, null, message, null, null);
+                                }
                             }
                         }
 
