@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
     public long [] sms_t = {0,0,0,0};
     // minimal time interval between sms messages in seconds (900 = 15 min)
     public long sms_interval = 900;
-
+    // global array to pass variables into inner classes
+    public String [] global_s = new String [10];
+    public Integer [] global_i = new Integer [10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,26 +154,28 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d("===","ok");
                         String phone;
                         String message;
-                        SmsManager sms = SmsManager.getDefault();
+                        Handler handler1 = new Handler();
 
-                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.click1);
-                        mp.start();
-
-                        for (Integer sms_id : params.SmsIds[n]) {
+                        // sending sms with delay
+                        int count = 0;
+                        for (Integer sms_id: params.SmsIds[n]) {
                             if (sms_id != null) {
-                                phone = params.Phones[sms_id][1];
+                                phone = params.Phones[sms_id][1];;
                                 message = params.SmsMessages[n];
-                                //Log.d("===",message);
-                                if (params.Options.get("test").equals("1")) {
-                                    // test
-                                    Toast.makeText(getApplicationContext(), "== test sms: "+phone, Toast.LENGTH_LONG).show();
-                                } else {
-                                    //send sms
-                                    sms.sendTextMessage(phone, null, message, null, null);
-                                }
+                                //Log.d("===", String.valueOf(sms_id));
+                                handler1.postDelayed(
+                                        new SmsRunnable(getApplicationContext(),
+                                                phone
+                                                ,message,
+                                                params.Options.get("test").equals("1")),
+                                        Integer.parseInt(params.Options.get("sms_delay"))*1000 * count);
                             }
+                            count += 1;
                         }
-
+                        // click sound
+                        //MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.click1);
+                        //mp.start();
+                        // end sending sms with delay
                     }
 
                 }};
