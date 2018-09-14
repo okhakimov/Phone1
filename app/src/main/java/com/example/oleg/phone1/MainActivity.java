@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -17,10 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -119,6 +122,36 @@ public class MainActivity extends AppCompatActivity {
             button.setText(params.msg);
             //Toast.makeText(getApplicationContext(), params.msg, Toast.LENGTH_LONG).show();
         }
+    }
+
+    // use volume down and up keys to open the configuration activity
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
+            //Do something
+            LinearLayout lay = (LinearLayout) findViewById(R.id.sms_frame);
+            ColorDrawable viewColor = (ColorDrawable) lay.getBackground();
+            Integer colorId = viewColor.getColor();
+            Log.d("==","volume down"+colorId.toString());
+            // starting color is white = -1
+            lay.setBackgroundColor(colorId*10);
+        }
+        return true;
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            //Do something
+            LinearLayout lay = (LinearLayout) findViewById(R.id.sms_frame);
+            ColorDrawable viewColor = (ColorDrawable) lay.getBackground();
+            Integer colorId = viewColor.getColor();
+            Log.d("==","volume up"+colorId.toString());
+            if (colorId == -1000) {
+                // reset the color to white = -1
+                lay.setBackgroundColor(-1);
+            }
+        }
+        return true;
     }
 
     View.OnClickListener b_OnClickListener =

@@ -41,6 +41,7 @@ public class Params
         ColorCodes.put("pink", "#f67eff");
         ColorCodes.put("grey", "#c8c8c8");
 
+        // default valuse
         Options.put("test", "0");
         Options.put("sms_delay", "0");
 
