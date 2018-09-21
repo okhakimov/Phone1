@@ -1,22 +1,14 @@
 package com.example.oleg.phone1;
 
-import android.Manifest;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,10 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     File sdcard = Environment.getExternalStorageDirectory();
     public String in_file_name = sdcard+"/DCIM/PHONE/phone_list.txt";
     //File in_file = new File(sdcard,in_file_name);
-    public Params params = new Params(in_file_name);
+    public Params params = new Params();
 
     // timers. in seconds to limit number of sms
     public long [] sms_t = {0,0,0,0};
@@ -76,6 +72,22 @@ public class MainActivity extends AppCompatActivity {
         //set landscape orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         //set landscape orientation. end
+
+        try {
+            loadMainActivity();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadMainActivity() throws FileNotFoundException {
+
+        // read default config
+        InputStream def_config = getResources().openRawResource(R.raw.default_config);
+        params.readConfig(def_config);
+        // read custom config
+        InputStream cust_config = new FileInputStream(new File(in_file_name));
+        params.readConfig(cust_config);
 
         setContentView(R.layout.activity_main);
 
@@ -123,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), params.msg, Toast.LENGTH_LONG).show();
         }
     }
-
     // use volume down and up keys to open the configuration activity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -134,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             Integer colorId = viewColor.getColor();
             Log.d("==","volume down"+colorId.toString());
             // starting color is white = -1
-            lay.setBackgroundColor(colorId*10);
+            lay.setBackgroundColor(colorId+1);
         }
         return true;
     }
@@ -146,9 +157,12 @@ public class MainActivity extends AppCompatActivity {
             ColorDrawable viewColor = (ColorDrawable) lay.getBackground();
             Integer colorId = viewColor.getColor();
             Log.d("==","volume up"+colorId.toString());
-            if (colorId == -1000) {
+            if (colorId == 2) {
                 // reset the color to white = -1
                 lay.setBackgroundColor(-1);
+                Intent configIntent = new Intent(this, ConfigActivity.class);
+                configIntent.putExtra("in_file_name", in_file_name);
+                startActivity(configIntent);
             }
         }
         return true;

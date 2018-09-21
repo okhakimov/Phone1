@@ -1,0 +1,17 @@
+## options: o test 0/1 sms_delay sec
+o test 1
+o sms_delay 2
+## phones: p n name phone_number
+p 1 Name1 nnnnnnnn
+p 2 Name2 nnnnnnnn
+p 3 Name3 nnnnnnnn
+p 4 Name4 nnnnnnnn
+## call buttons: c n phone color
+c 1 1 #d3ffce
+c 2 2 #d3ffce
+c 3 3 #c6e2ff
+c 4 4 #c6e2ff
+## sms buttons: s n phone1,phone2,... color label sms_message
+s 1 4 yellow   1 t1
+s 2 4 orange   2 t2
+s 3 4 red      3 t3

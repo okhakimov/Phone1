@@ -72,7 +72,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/sms_frame"
+            android:id="@+id/frame2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
@@ -82,6 +82,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sms_frame"
+            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
