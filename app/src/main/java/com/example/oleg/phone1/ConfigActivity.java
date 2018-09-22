@@ -27,10 +27,10 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.activity_config);
 
         Bundle bundle = getIntent().getExtras();
-        final String in_file_name = bundle.getString("in_file_name");
+        final String cust_conf_name = bundle.getString("cust_conf_name");
         final EditText editText = (EditText)findViewById(R.id.config_edittext);
 
-        final File in_file = new File(in_file_name);
+        final File in_file = new File(cust_conf_name);
         String content = "";
         String msg = "";
         try {
@@ -57,12 +57,12 @@ public class ConfigActivity extends AppCompatActivity {
                 String text = editText.getText().toString();
                 try {
                     // TODO. Problem with writing output file: permission denied
-                    //File file = new File(in_file_name);
+                    //File file = new File(cust_conf_name);
                     //File ss = Environment.getExternalStorageDirectory();
                     //Log.d("== f ",ss.toString());
                     //File file = new File("/storage/emulated/0/DCIM/tmp.txt");
                     //file.createNewFile();
-                    File file = new File(in_file_name);
+                    File file = new File(cust_conf_name);
                     FileOutputStream fileOutputStream = new FileOutputStream(file,false);
                     fileOutputStream.write((text + System.getProperty("line.separator")).getBytes());
                     Log.d("==","save");

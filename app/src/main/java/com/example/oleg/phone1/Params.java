@@ -39,7 +39,7 @@ public class Params
     }
     public void readConfig(InputStream in_file) {
 
-        //File in_file = new File(in_file_name);
+        //File in_file = new File(cust_conf_name);
 
         ColorCodes.put("red", "#ff6d18");
         ColorCodes.put("green", "#41ba7a");

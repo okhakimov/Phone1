@@ -18,15 +18,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
             R.id.sms3,
     };
 
-    File sdcard = Environment.getExternalStorageDirectory();
-    public String in_file_name = sdcard+"/DCIM/PHONE/phone_list.txt";
-    //File in_file = new File(sdcard,in_file_name);
+    //File sdcard = Environment.getExternalStorageDirectory();
+    //public String cust_conf_name = sdcard+"/DCIM/PHONE/phone_list.txt";
+
+    public String cust_conf_name = "";
+
+    //File in_file = new File(sdcard,cust_conf_name);
     public Params params = new Params();
 
     // timers. in seconds to limit number of sms
@@ -63,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        String cust_conf_path = getFilesDir().toString();
+        // custom configuration file
+        cust_conf_name = cust_conf_path + "/custom_config.txt";
 
         //hide status bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -79,15 +85,46 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
     private void loadMainActivity() throws FileNotFoundException {
 
         // read default config
         InputStream def_config = getResources().openRawResource(R.raw.default_config);
         params.readConfig(def_config);
+
         // read custom config
-        InputStream cust_config = new FileInputStream(new File(in_file_name));
-        params.readConfig(cust_config);
+        //String cust_conf_path = getApplicationContext().getFilesDir().toString();
+        //String cust_conf_name = cust_conf_path + "/custom_config.txt";
+        Log.d("== f",cust_conf_name);
+        //create custom_config file if it doens't exist
+        File f = new File(cust_conf_name);
+        if(!f.exists()){
+            //f.createNewFile();
+            InputStream fis = getResources().openRawResource(R.raw.default_config);
+            OutputStream fos = new FileOutputStream(new File(cust_conf_name));
+            try {
+                copyFile(fis,fos);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("== f","file doesn't exits");
+        }else{
+            Log.d("== f","file exist");
+        }
+
+        try (InputStream cust_config = new FileInputStream(new File(cust_conf_name))) {
+            //InputStream cust_config = new FileInputStream(new File(cust_conf_name));
+            params.readConfig(cust_config);
+        } catch (IOException e) {
+            Log.d("==", e.getMessage());
+
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -161,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 // reset the color to white = -1
                 lay.setBackgroundColor(-1);
                 Intent configIntent = new Intent(this, ConfigActivity.class);
-                configIntent.putExtra("in_file_name", in_file_name);
+                configIntent.putExtra("cust_conf_name", cust_conf_name);
                 startActivity(configIntent);
             }
         }
