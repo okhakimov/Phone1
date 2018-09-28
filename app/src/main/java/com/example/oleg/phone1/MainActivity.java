@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("== f",cust_conf_name);
         //create custom_config file if it doens't exist
         File f = new File(cust_conf_name);
-        if(!f.exists()){
+        if(!f.exists() || f.length() < 10){
             //f.createNewFile();
             InputStream fis = getResources().openRawResource(R.raw.default_config);
             OutputStream fos = new FileOutputStream(new File(cust_conf_name));
@@ -127,7 +127,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+        Log.d("== m", "test");
 
+        TextView text_message = (TextView) findViewById(R.id.help_message);
+        text_message.setText(params.HelpMessage);
         if (params.Options.get("test").equals("1")) {
             // test
             Toast.makeText(getApplicationContext(), "== test mode ==", Toast.LENGTH_LONG).show();

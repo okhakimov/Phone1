@@ -1,0 +1,5 @@
+When installed, the program is in the test mode - phone
+calls are not made and sms are not sent, only messages
+are displayed on the screen. To enable phone calls and
+sms, set in config file change in the config file
+line "o test 1" to "o test 0"

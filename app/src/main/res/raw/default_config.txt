@@ -1,6 +1,8 @@
 ## options: o test 0/1 sms_delay sec
 o test 1
 o sms_delay 2
+## help message
+h press 3 times volume down + 1 time volume up to open settings
 ## phones: p n name phone_number
 p 1 Name1 nnnnnnnn
 p 2 Name2 nnnnnnnn

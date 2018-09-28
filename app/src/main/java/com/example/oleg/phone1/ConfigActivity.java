@@ -56,12 +56,6 @@ public class ConfigActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text = editText.getText().toString();
                 try {
-                    // TODO. Problem with writing output file: permission denied
-                    //File file = new File(cust_conf_name);
-                    //File ss = Environment.getExternalStorageDirectory();
-                    //Log.d("== f ",ss.toString());
-                    //File file = new File("/storage/emulated/0/DCIM/tmp.txt");
-                    //file.createNewFile();
                     File file = new File(cust_conf_name);
                     FileOutputStream fileOutputStream = new FileOutputStream(file,false);
                     fileOutputStream.write((text + System.getProperty("line.separator")).getBytes());
@@ -89,5 +83,16 @@ public class ConfigActivity extends AppCompatActivity {
                 startActivity(MainIntent);
             }
         });
+
+        Button helpButton = (Button) findViewById(R.id.config_help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent HelpIntent = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(HelpIntent);
+            }
+        });
+
+
     }
 }

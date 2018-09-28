@@ -1,25 +1,18 @@
 package com.example.oleg.phone1;
 
-/**
- * Created by oleg on 7/21/18.
+/*
+ * Phone with large buttons for calls and sms. Created by oleg on 7/21/18.
  */
 
 // read file with parametes and create an object
 // read file with parametes and create an object
 import android.util.Log;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class Params
@@ -32,6 +25,7 @@ public class Params
     public String[] SmsMessages = new String [30] ;
     public Integer[][] SmsIds = new Integer [10][20] ;
     public String msg = "ok";
+    public String HelpMessage = "";
     public    HashMap<String, String>  ColorCodes = new HashMap<String, String>();
     public    HashMap<String, String>  Options = new HashMap<String, String>();
 
@@ -91,6 +85,10 @@ public class Params
             case "o" :
                 // options
                 Options.put(a_line[1],a_line[2]);
+                break;
+            case "h" :
+                // text message
+                HelpMessage = line.substring(1);
                 break;
             case "p" :
                 //System.out.println("== p");
