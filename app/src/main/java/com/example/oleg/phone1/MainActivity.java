@@ -99,9 +99,7 @@ public class MainActivity extends AppCompatActivity {
         params.readConfig(def_config);
 
         // read custom config
-        //String cust_conf_path = getApplicationContext().getFilesDir().toString();
-        //String cust_conf_name = cust_conf_path + "/custom_config.txt";
-        Log.d("== f",cust_conf_name);
+        //Log.d("== f",cust_conf_name);
         //create custom_config file if it doens't exist
         File f = new File(cust_conf_name);
         if(!f.exists() || f.length() < 10){
@@ -121,15 +119,15 @@ public class MainActivity extends AppCompatActivity {
         try (InputStream cust_config = new FileInputStream(new File(cust_conf_name))) {
             //InputStream cust_config = new FileInputStream(new File(cust_conf_name));
             params.readConfig(cust_config);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.d("==", e.getMessage());
 
         }
 
         setContentView(R.layout.activity_main);
-        Log.d("== m", "test");
+        //Log.d("== m", "test");
 
-        TextView text_message = (TextView) findViewById(R.id.help_message);
+        TextView text_message = findViewById(R.id.help_message);
         text_message.setText(params.HelpMessage);
         if (params.Options.get("test").equals("1")) {
             // test
@@ -140,36 +138,38 @@ public class MainActivity extends AppCompatActivity {
 
         if ("ok".equals(params.msg)) {
             Integer k = 0;
-            for (int id : BUTTON_IDS) {
-                Button button = (Button) findViewById(id);
-                //button.setOnClickListener(this); // maybe
-                button.setOnClickListener(b_OnClickListener);
-                button.setTag(k + 1);
-                //Log.d("===k ",Integer.toString(k));
-                button.setText(params.Phones[params.CallId[k + 1]][0]);
-                button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
-                k = k + 1;
-                buttons.add(button);
+            try {
+                for (int id : BUTTON_IDS) {
+                    Button button = findViewById(id);
+                    //button.setOnClickListener(this); // maybe
+                    button.setOnClickListener(b_OnClickListener);
+                    button.setTag(k + 1);
+                    //Log.d("===k ",Integer.toString(k));
+                    button.setText(params.Phones[params.CallId[k + 1]][0]);
+                    button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
+                    k = k + 1;
+                    buttons.add(button);
+                }
+            } catch (Exception e) {
+                Log.d("==", e.getMessage());
             }
 
             k = 0;
+            try {
             for (int id : SMS_BUTTON_IDS) {
-                Button button = (Button) findViewById(id);
+                Button button = findViewById(id);
                 button.setOnClickListener(b_smsOnClickListener);
                 button.setTag(k + 1);
-                //Log.d("===",params.SmsColors[k+1]);
-                //button.setBackgroundResource(R.drawable.roundedbutton_green);
-                //GradientDrawable drawable = (GradientDrawable) button.getDrawableState();
-                //drawable.setColor(Color.RED);
-
-
                 button.setBackgroundColor(Color.parseColor(params.SmsColors[k + 1]));
                 button.setText(params.SmsLabels[k + 1]);
                 k = k + 1;
 
             }
+            } catch (Exception e) {
+                Log.d("==", e.getMessage());
+            }
         } else {
-            Button button = (Button) findViewById(R.id.call1);
+            Button button = findViewById(R.id.call1);
             button.setTextSize(8);
             button.setText(params.msg);
             //Toast.makeText(getApplicationContext(), params.msg, Toast.LENGTH_LONG).show();
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
             //Do something
-            LinearLayout lay = (LinearLayout) findViewById(R.id.sms_frame);
+            LinearLayout lay = findViewById(R.id.sms_frame);
             ColorDrawable viewColor = (ColorDrawable) lay.getBackground();
             Integer colorId = viewColor.getColor();
             Log.d("==","volume down"+colorId.toString());
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
             //Do something
-            LinearLayout lay = (LinearLayout) findViewById(R.id.sms_frame);
+            LinearLayout lay = findViewById(R.id.sms_frame);
             ColorDrawable viewColor = (ColorDrawable) lay.getBackground();
             Integer colorId = viewColor.getColor();
             Log.d("==","volume up"+colorId.toString());
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                         int count = 0;
                         for (Integer sms_id: params.SmsIds[n]) {
                             if (sms_id != null) {
-                                phone = params.Phones[sms_id][1];;
+                                phone = params.Phones[sms_id][1];
                                 message = params.SmsMessages[n];
                                 //Log.d("===", String.valueOf(sms_id));
                                 handler1.postDelayed(

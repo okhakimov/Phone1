@@ -16,27 +16,32 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
+            style="?android:attr/buttonBarStyle"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp">
 
             <Button
                 android:id="@+id/call1"
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:text="c1"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="4dp"
+                android:gravity="center_vertical|center_horizontal"
                 android:textSize="60sp" />
 
             <Button
                 android:id="@+id/call3"
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:text="C3"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="4dp"
+                android:gravity="center_vertical|center_horizontal"
                 android:textSize="60sp" />
 
         </LinearLayout>
@@ -51,22 +56,26 @@
 
             <Button
                 android:id="@+id/call2"
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="4dp"
                 android:layout_weight="0.5"
                 android:text="C2"
+                android:gravity="center_vertical|center_horizontal"
                 android:textSize="60sp" />
 
             <Button
                 android:id="@+id/call4"
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:text="C4"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="4dp"
+                android:gravity="center_vertical|center_horizontal"
                 android:textSize="60sp" />
 
         </LinearLayout>
