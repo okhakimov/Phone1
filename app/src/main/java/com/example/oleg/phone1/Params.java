@@ -12,18 +12,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Params
 {
-    public String[][] Phones = new String [30][2] ;
-    public Integer[] CallId = new Integer [30] ;
+    //public String[][] Phones = new String [30][2] ;
+    public    HashMap<String, String>  PhoneNames = new HashMap<String, String>();
+    public    HashMap<String, String>  PhoneNumbers = new HashMap<String, String>();
+    public Map<Integer, List<String>> SmsIds = new HashMap<Integer, List<String>>();
+
+
+    public String[] CallId = new String [30] ;
     public String[] CallColors = new String [30] ;
     public String[] SmsColors = new String [30] ;
     public String[] SmsLabels = new String [30] ;
     public String[] SmsMessages = new String [30] ;
-    public Integer[][] SmsIds = new Integer [10][20] ;
+    //public Integer[][] SmsIds = new Integer [10][20] ;
     public String msg = "ok";
     public String HelpMessage = "";
     public    HashMap<String, String>  ColorCodes = new HashMap<String, String>();
@@ -93,13 +102,16 @@ public class Params
             case "p" :
                 //System.out.println("== p");
                 int n = Integer.parseInt(a_line[1]);
-                    Phones[n][0]  = a_line[2];
-                    Phones[n][1]  = a_line[3];
+                    //Phones[n][0]  = a_line[2];
+                    //Phones[n][1]  = a_line[3];
+                    PhoneNames.put(a_line[1],a_line[2]);
+                    PhoneNumbers.put(a_line[1],a_line[3]);
+
                 break;
             case "c" :
                 n = Integer.parseInt(a_line[1]);
 
-                    CallId[n]  = Integer.parseInt(a_line[2]);
+                    CallId[n]  = a_line[2];
                     if (ColorCodes.get(a_line[3]) != null) {
                         CallColors[n] = ColorCodes.get(a_line[3]);
                     } else {
@@ -109,7 +121,8 @@ public class Params
 
             case "s" :
                 n = Integer.parseInt(a_line[1]);
-
+                    SmsIds.put(n, Arrays.asList(a_line[2].split(",")));
+                    /*
                     int i = 0;
                     for (String s : a_line[2].split(",")) {
                         if (s != null) {
@@ -117,6 +130,7 @@ public class Params
                             i++;
                         }
                     }
+                    */
                     if (ColorCodes.get(a_line[3]) != null) {
                         SmsColors[n] = ColorCodes.get(a_line[3]);
                     } else {

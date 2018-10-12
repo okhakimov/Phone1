@@ -145,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
                     button.setOnClickListener(b_OnClickListener);
                     button.setTag(k + 1);
                     //Log.d("===k ",Integer.toString(k));
-                    button.setText(params.Phones[params.CallId[k + 1]][0]);
+                    //button.setText(params.Phones[params.CallId[k + 1]][0]);
+                    Log.d("== a",params.CallId[k + 1]);
+                    button.setText(params.PhoneNames.get(params.CallId[k + 1]));
                     button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
                     k = k + 1;
                     buttons.add(button);
@@ -216,11 +218,11 @@ public class MainActivity extends AppCompatActivity {
                     int n = (int) v.getTag();
                     if (params.Options.get("test").equals("1")) {
                         // test
-                        Toast.makeText(getApplicationContext(), "== test call tel: "+params.Phones[params.CallId[n]][1], Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "== test call tel: "+params.PhoneNumbers.get(params.CallId[n]), Toast.LENGTH_LONG).show();
                     } else {
                         // call
                         Intent intent = new Intent(Intent.ACTION_CALL);
-                        intent.setData(Uri.parse("tel:" + params.Phones[params.CallId[n]][1]));
+                        intent.setData(Uri.parse("tel:" + params.PhoneNumbers.get(params.CallId[n])));
                         startActivity(intent);
                     }
                 }};
@@ -245,9 +247,9 @@ public class MainActivity extends AppCompatActivity {
 
                         // sending sms with delay
                         int count = 0;
-                        for (Integer sms_id: params.SmsIds[n]) {
+                        for (String  sms_id: params.SmsIds.get(n)) {
                             if (sms_id != null) {
-                                phone = params.Phones[sms_id][1];
+                                phone = params.PhoneNumbers.get(sms_id);
                                 message = params.SmsMessages[n];
                                 //Log.d("===", String.valueOf(sms_id));
                                 handler1.postDelayed(
