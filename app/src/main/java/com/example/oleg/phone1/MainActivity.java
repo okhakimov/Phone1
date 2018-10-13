@@ -120,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
             //InputStream cust_config = new FileInputStream(new File(cust_conf_name));
             params.readConfig(cust_config);
         } catch (Exception e) {
-            Log.d("==", e.getMessage());
+            Log.d("== ex", e.getMessage());
 
         }
 
         setContentView(R.layout.activity_main);
-        //Log.d("== m", "test");
+        Log.d("== m", "test");
 
         TextView text_message = findViewById(R.id.help_message);
         text_message.setText(params.HelpMessage);
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d("===k ",Integer.toString(k));
                     //button.setText(params.Phones[params.CallId[k + 1]][0]);
                     Log.d("== a",params.CallId[k + 1]);
+                    Log.d("== b",params.PhoneNames.get(params.CallId[k + 1]));
                     button.setText(params.PhoneNames.get(params.CallId[k + 1]));
                     button.setBackgroundColor(Color.parseColor(params.CallColors[k + 1]));
                     k = k + 1;

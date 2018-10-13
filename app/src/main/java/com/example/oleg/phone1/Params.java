@@ -5,7 +5,6 @@ package com.example.oleg.phone1;
  */
 
 // read file with parametes and create an object
-// read file with parametes and create an object
 import android.util.Log;
 
 import java.io.InputStream;
@@ -52,7 +51,7 @@ public class Params
         ColorCodes.put("pink", "#f67eff");
         ColorCodes.put("grey", "#c8c8c8");
 
-        // default valuse
+        // default values
         Options.put("test", "0");
         Options.put("sms_delay", "0");
 
@@ -75,9 +74,7 @@ public class Params
             }
             br.close();
         }
-        //catch(FileNotFoundException e) {
-        //    Log.d("==", e.getMessage());
-        //}
+
         catch (IOException e) {
             msg="-- error: can't read file";
             Log.d("==", e.getMessage());
@@ -89,7 +86,7 @@ public class Params
         String msg = "ok";
         //System.out.println("==parse "+line);
         String[] a_line = line.split(" ");
-
+        Integer n;
         switch (a_line[0] ) {
             case "o" :
                 // options
@@ -101,11 +98,8 @@ public class Params
                 break;
             case "p" :
                 //System.out.println("== p");
-                int n = Integer.parseInt(a_line[1]);
-                    //Phones[n][0]  = a_line[2];
-                    //Phones[n][1]  = a_line[3];
-                    PhoneNames.put(a_line[1],a_line[2]);
-                    PhoneNumbers.put(a_line[1],a_line[3]);
+                PhoneNames.put(a_line[1],a_line[2]);
+                PhoneNumbers.put(a_line[1],a_line[3]);
 
                 break;
             case "c" :
@@ -122,15 +116,6 @@ public class Params
             case "s" :
                 n = Integer.parseInt(a_line[1]);
                     SmsIds.put(n, Arrays.asList(a_line[2].split(",")));
-                    /*
-                    int i = 0;
-                    for (String s : a_line[2].split(",")) {
-                        if (s != null) {
-                            SmsIds[n][i] = Integer.parseInt(s);
-                            i++;
-                        }
-                    }
-                    */
                     if (ColorCodes.get(a_line[3]) != null) {
                         SmsColors[n] = ColorCodes.get(a_line[3]);
                     } else {
